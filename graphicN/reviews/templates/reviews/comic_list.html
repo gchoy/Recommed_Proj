@@ -1,0 +1,30 @@
+{% extends 'reviews/base.html' %}
+
+{% block title %}
+<h2>Comic list</h2>
+{% endblock %}
+
+
+{% block content %}
+
+{% if comic_list %}
+<div>
+    {% for comic in comic_list %}
+    <div>
+        <h4><a href="{% url 'reviews:comic_detail' comic.id %}">
+        {{ comic.name }}
+        </a></h4>
+        <h5>{{ comic.review_set.count }} reviews</h5>
+        <h5>{{ comic.average_rating | floatformat }} average rating</h5>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+    <p>No Comics are available.</p>
+{% endif %}
+{% endblock %}
+
+
+
+
+
