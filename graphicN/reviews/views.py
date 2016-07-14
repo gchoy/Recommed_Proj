@@ -30,8 +30,8 @@ def comic_detail(request, comic_id):
 
 
 
-def add_review(request, wine_id):
-    comic = get_object_or_404(Comic, pk=wine_id)
+def add_review(request, comic_id):
+    comic = get_object_or_404(Comic, pk=comic_id)
     form = ReviewForm(request.POST)
     if form.is_valid():
        rating = form.cleaned_data['rating']
@@ -45,4 +45,4 @@ def add_review(request, wine_id):
        review.pub_date = datetime.datetime.now()
        review.save()
        return HttpResponseRedirect(reverse('reviews:comic_detail', args=(comic.id,)))
-    return render(request, 'reviews/comic_detail.html', {'comic': wine, 'form': form})
+    return render(request, 'reviews/comic_detail.html', {'comic': comic, 'form': form})

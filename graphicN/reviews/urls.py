@@ -8,4 +8,3 @@ urlpatterns=[
     url(r'^comic/(?P<comic_id>[0-9]+)/$', views.comic_detail, name='comic_detail'),
     url(r'^comic/(?P<comic_id>[0-9]+)/add_review/$', views.add_review, name='add_review'),
 ]
-
