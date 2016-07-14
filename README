@@ -1,8 +1,6 @@
 This is a media recommender based on collaborative filtering drawing from media reviews and twitter.
 
-Part 1. Recommender system for graphic novels using good reads reviews
+Part 1. Recommender system for graphic novels using collaborative filtering
 Part 2. Recommender system for tv shows using themoviedatabase.org reviews
 Part 3. Recommender system using both review databases.
-Part 4. Incorporate Twitter.
-
-
+Part 4. Incorporate Twitter and scale.
