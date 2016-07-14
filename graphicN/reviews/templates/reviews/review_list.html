@@ -6,11 +6,11 @@
 
 {% block content %}
 {% if latest_review_list %}
-<div>
+<div class="row">
     {% for review in latest_review_list %}
-    <div>
+    <div class="col-xs-6 col-lg-4">
         <h4><a href="{% url 'reviews:review_detail' review.id %}">
-        {{ review.comic.name }}
+        {{ review.wine.name }}
         </a></h4>
         <h6>rated {{ review.rating }} of 5 by {{ review.user_name }}</h6>
         <p>{{ review.comment }}</p>
