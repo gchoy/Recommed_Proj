@@ -1,8 +1,11 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
+
 from .models import Review, Comic
 from .forms import ReviewForm
+
 import datetime
 
 
@@ -29,7 +32,7 @@ def comic_detail(request, comic_id):
     return render(request, 'reviews/comic_detail.html', {'comic': comic, 'form': form})
 
 
-
+@login_required
 def add_review(request, comic_id):
     comic = get_object_or_404(Comic, pk=comic_id)
     form = ReviewForm(request.POST)
@@ -37,6 +40,7 @@ def add_review(request, comic_id):
        rating = form.cleaned_data['rating']
        comment = form.cleaned_data['comment']
        user_name = form.cleaned_data['user_name']
+       user_name = request.user.username
        review = Review()
        review.comic = comic
        review.user_name = user_name
