@@ -1,0 +1,42 @@
+id,username,comic_id,rating,comment
+0,gchoy,0,4, Saga is an awesome comic.
+1,gchoy,1,4, Preacher is good.
+2,khanh,1,5, Preacher is awesome.
+3,rebeca,5,3, Hinterkind is ok.
+4,gchoy,5,5, Hinterkind is awesome.
+5,khanh,5,3, It's ok.
+6,steve,7,5, I really liked batman.
+7,rebeca,7,5, Awesome.
+8,gchoy,9,5, I love it.
+9,khanh,12,5, I really like it.
+10,gchoy,11,5, Watchmen!.
+11,mari,0,5, Good.
+12,mari,1,3,Ok.
+13,mari,2,1,Meh.
+14,mari,3,2,ok.
+15,mari,4,1,don't like it.
+16,mari,5,3,ok.
+17,mari,6,3,ok.
+18,mari,7,3,ok.
+19,mari,8,4,ok.
+20,mari,9,4,I like it.
+21,mari,10,2,Not.
+22,mari,11,2,Bad.
+23,mari,12,2,baaad.
+24,lluis,1,5,Good.
+25,lluis,3,5,Awesome.
+26,lluis,0,3,Ok.
+27,lluis,9,5,I like it.
+28,carlos,11,5,I like it.
+29,carlos,12,5,Green lantern go.
+30,steve,4,3,It was ok.
+31,steve,6,3,Ok.
+32,steve,7,3,ok.
+33,steve,10,3,ok.
+34,teus,10,4,like.
+35,teus,11,4,like.
+36,teus,12,4,like.
+37,teus,9,4,like.
+38,teus,6,4,like.
+39,teus,7,4,like.
+40,teus,8,4,like.
