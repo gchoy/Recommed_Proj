@@ -39,7 +39,6 @@ def add_review(request, comic_id):
     if form.is_valid():
        rating = form.cleaned_data['rating']
        comment = form.cleaned_data['comment']
-       user_name = form.cleaned_data['user_name']
        user_name = request.user.username
        review = Review()
        review.comic = comic
@@ -52,8 +51,12 @@ def add_review(request, comic_id):
     return render(request, 'reviews/comic_detail.html', {'comic': comic, 'form': form})
 
 def user_review_list(request, username=None):
-    if not usernames:
+    if not username:
         username = request.user.username
     latest_review_list = Review.objects.filter(user_name=username).order_by('-pub_date')
     context = {'latest_review_list':latest_review_list, 'username':username}
     return render(request, 'reviews/user_review_list.html', context)
+
+@login_required
+def user_recommendation_list(request):
+    return render(request, 'reviews/user_recommendation_list.html', {'username':request.user.username})
