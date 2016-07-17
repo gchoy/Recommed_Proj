@@ -59,4 +59,9 @@ def user_review_list(request, username=None):
 
 @login_required
 def user_recommendation_list(request):
+    # get this user reviews
+    user_reviews = Review.objects.filter(user_name=request.user.username).prefetch_related('comic')
+    # from the reviews, get a set of wine IDs
+    user_reviews_comic_ids = set(map(lambda x: x.comic.id, user_reviews))
+    comic_list = Comic.objects.exclude(id__in=user_reviews_comic_ids)
     return render(request, 'reviews/user_recommendation_list.html', {'username':request.user.username})
