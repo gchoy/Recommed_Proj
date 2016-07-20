@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from .suggestions import update_clusters
 
 from .models import Review, Comic
 from .forms import ReviewForm
@@ -47,6 +48,7 @@ def add_review(request, comic_id):
        review.comment = comment
        review.pub_date = datetime.datetime.now()
        review.save()
+       update_clusters()
        return HttpResponseRedirect(reverse('reviews:comic_detail', args=(comic.id,)))
     return render(request, 'reviews/comic_detail.html', {'comic': comic, 'form': form})
 
@@ -63,5 +65,36 @@ def user_recommendation_list(request):
     user_reviews = Review.objects.filter(user_name=request.user.username).prefetch_related('comic')
     # from the reviews, get a set of wine IDs
     user_reviews_comic_ids = set(map(lambda x: x.comic.id, user_reviews))
-    comic_list = Comic.objects.exclude(id__in=user_reviews_comic_ids)
-    return render(request, 'reviews/user_recommendation_list.html', {'username':request.user.username})
+
+    try:
+        user_cluster_name = \
+           User.objects.get(username=request.user.username).cluster_set.first().name
+    except:
+        update_clusters()
+        user_cluster_name = \
+           User.objects.get(username=request.user.username).cluster_set.first().name
+
+    user_cluster_other_members = \
+        Cluster.objects.get(name=user_cluster_name).users \
+            .exclude(username=request.user.username).all()
+    other_members_usernames = set(map(lambda x: x.username, user_cluster_other_members))
+
+    other_users_reviews = \
+        Review.objects.filter(user_name__in=other_members_usernames) \
+            .exclude(comic__id__in=user_reviews_comic_ids)
+    other_users_reviews_comic_ids = set(map(lambda x: x.comic.id, other_users_reviews))
+
+    comic_list = sorted(
+        list(Comic.objects.filter(id__in=other_users_reviews_comic_ids)),
+        key=lambda x: x.average_rating,
+        reverse=True
+    )
+
+    return render(
+        request,
+        'reviews/user_recommendation_list.html',
+        {'username': request.user.username,'comic_list': comic_list}
+    )
+
+    #comic_list = Comic.objects.exclude(id__in=user_reviews_comic_ids)
+    #return render(request, 'reviews/user_recommendation_list.html', {'username':request.user.username})
